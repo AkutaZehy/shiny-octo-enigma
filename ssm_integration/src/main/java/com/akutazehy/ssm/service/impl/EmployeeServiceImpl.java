@@ -27,4 +27,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getAllEmployee() {
         return employeeMapper.getAllEmployee();
     }
+    @Override
+    public PageInfo<Employee> getEmployeesByPage(Integer pageNum) {
+        //开启分页功能
+        PageHelper.startPage(pageNum, 4);
+
+        //查询所有员工信息
+        List<Employee> list = employeeMapper.getAllEmployee();
+
+        //获取分页相关数据
+        PageInfo<Employee> page = new PageInfo<>(list, 5);
+
+        return page;
+    }
 }

@@ -17,6 +17,7 @@ import java.util.List;
  * @version 1.0
  * Description:
  * 查询所有的员工信息 --> /employee --> get
+ * 查询员工的分页信息 --> /employee/page/1 --> get
  * 根据id查询员工信息 --> /employee/1 --> get
  * 跳转到添加页面 --> /to/add --> get
  * 添加员工信息 --> /employee --> post
@@ -42,12 +43,20 @@ public class EmployeeController {
 
 
 
-    /*@RequestMapping(value = "/page/{pageNumber}", method = RequestMethod.GET)
-    public PageInfo<Employee> getAllEmployeeByPage(@PathVariable(value = "pageNumber", required = false) Integer page) {
-        if(null == page)
-            page = 1;
-        return employeeService.getEmployeesByPage(page);
-    }*/
+    @RequestMapping(value = "employee/page/{pageNumber}", method = RequestMethod.GET)
+    public String getAllEmployeeByPage(@PathVariable(value = "pageNumber") Integer pageNum,
+                                       Model model) {
+        //获取分页信息
+        if(null == pageNum)
+            pageNum = 1;
+        PageInfo<Employee> page =  employeeService.getEmployeesByPage(pageNum);
+
+        //将分页数据共享到请求域中
+        model.addAttribute("page", page);
+
+        //跳转到employee_list.html
+        return "employee_page";
+    }
 
     /*@RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Employee getEmployeeById(@PathVariable(value = "id") String empId) {
