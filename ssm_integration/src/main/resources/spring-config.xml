@@ -49,10 +49,19 @@
 
         <!-- 数据源设置成 druid 的 -->
         <property name="dataSource" ref="dataSource"></property>
+
+        <!--设置类型别名所在的包-->
+        <property name="typeAliasesPackage" value="com.akutazehy.ssm.pojo"></property>
+
+        <!--设置映射文件的路径，只有映射文件的包和mapper接口的包不一致时需要设置-->
+        <!--<property name="mapperLocations" value="classpath:mappers/*.xml"></property>-->
     </bean>
 
     <!-- 将要的 Mapper 接口的代理类注入到Spring的IOC容器, 如果多个 mapper 目录，使用,号分隔即可 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.atguigu.ssm.mapper"></property>
+        <property name="basePackage" value="com.akutazehy.ssm.mapper"></property>
     </bean>
+
+    
+
 </beans>
